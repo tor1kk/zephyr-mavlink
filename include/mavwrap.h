@@ -82,6 +82,8 @@ enum mavwrap_property_type {
 	MAVWRAP_PROPERTY_LORA_TX_POWER,      /**< TX power in dBm (uint32_t, cast to int8_t) */
 	MAVWRAP_PROPERTY_LORA_BANDWIDTH,     /**< Bandwidth in kHz: 125, 250, 500 (uint32_t) */
 	MAVWRAP_PROPERTY_LORA_DATARATE,      /**< Spreading factor 5..12 (uint32_t) */
+	MAVWRAP_PROPERTY_LORA_LAST_RSSI,     /**< Read-only: RSSI of last received packet (int16_t) */
+	MAVWRAP_PROPERTY_LORA_LAST_SNR,      /**< Read-only: SNR of last received packet (int8_t) */
 
 	/* Generic properties */
 	MAVWRAP_PROPERTY_TRANSPORT_TYPE,     /**< Read-only: transport type (enum mavwrap_transport_type) */

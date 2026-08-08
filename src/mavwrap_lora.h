@@ -48,6 +48,9 @@ struct mavwrap_lora_data {
 	void *user_data;
 
 	struct k_mutex config_mutex;
+
+	int16_t last_rx_rssi;
+	int8_t last_rx_snr;
 };
 
 
