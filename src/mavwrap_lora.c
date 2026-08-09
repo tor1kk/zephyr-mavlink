@@ -69,8 +69,11 @@ static void lora_internal_rx_cb(const struct device *lora_dev,
 	struct mavwrap_lora_data *lora_data = data->transport_data;
 
 	if (len > 0 && lora_data->rx_callback) {
+		k_mutex_lock(&lora_data->config_mutex, K_FOREVER);
 		lora_data->last_rx_rssi = rssi;
 		lora_data->last_rx_snr = snr;
+		k_mutex_unlock(&lora_data->config_mutex);
+
 		lora_data->rx_callback(dev, buf, len, lora_data->user_data);
 	}
 
@@ -263,10 +266,10 @@ static int mavwrap_lora_get_property(const struct device *dev,
 		prop->value.u32 = (uint32_t)lora_data->runtime_cfg.datarate;
 		break;
 	case MAVWRAP_PROPERTY_LORA_LAST_RSSI:
-		prop->value.u16 = (uint_16_t)lora_data->last_rx_rssi;
+		prop->value.u16 = (uint16_t)lora_data->last_rx_rssi;
 		break;
 	case MAVWRAP_PROPERTY_LORA_LAST_SNR:
-		prop->value.u16 = (uint_16_t)lora_data->last_rx_snr;
+		prop->value.u16 = (uint16_t)lora_data->last_rx_snr;
 		break;
 	default:
 		ret = -ENOTSUP;
